@@ -1,1 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+</head>
+<body>
+    <h2>Registration Form</h2>
+    <form id="registrationForm" onsubmit="return validateForm()">
+        
+        Username: <input type="text" id="username" name="username" required><br><br>
+        
+        Password: <input type="password" id="password" name="password" required><br><br>
+        
+        DOB: <input type="text" id="dob" name="dob" required><br><br>
+        
+        Contact: <input type="text" id="contact" name="contact" required><br><br>
+        
+        Email: <input type="email" id="email" name="email" required><br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
 
+    <script>
+        function validateForm()
+        {
+            // Validate Username: length between 8 and 16, starts with letter, contains letters and numbers
+            let username = document.getElementById('username').value;
+            let usernamePattern = /^[a-zA-Z][a-zA-Z0-9]{7,15}$/;
+            if (!usernamePattern.test(username)) {
+                alert('Username must be between 8 and 16 characters, start with a letter, and contain alphabets and numbers.');
+                return false;
+            }
+            // Validate Password: length between 8 and 16, contains at least 1 number and 1 special character
+            let password = document.getElementById('password').value;
+            let passwordPattern = /^(?=.[A-Za-z])(?=.\d)(?=.[!@#$%^&])[A-Za-z\d!@#$%^&*]{8,16}$/;
+            if (!passwordPattern.test(password)) {
+                alert('Password must be between 8 and 16 characters, contain at least 1 number, and exactly 1 special character.');
+                return false;
+            }
+
+            // Validate Date of Birth: dd-mm-yyyy format
+            let dob = document.getElementById('dob').value;
+            let dobPattern = /^\d{2}-\d{2}-\d{4}$/;
+            if (!dobPattern.test(dob)) {
+                alert('Date of Birth must be in the format dd-mm-yyyy.');
+                return false;
+            }
+
+            // Validate Contact Number: numbers only
+            let contact = document.getElementById('contact').value;
+            let contactPattern = /^[0-9]{10}$/;
+            if (!contactPattern.test(contact)) {
+                alert('Contact Number must be exactly 10 digits.');
+                return false;
+            }
+
+            // Validate Email: ends with @gmail.com, @hotmail.com, or @rediffmail.com
+            let email = document.getElementById('email').value;
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com|rediffmail\.com)$/;
+            if (!emailPattern.test(email)) {
+                alert('Email must end with @gmail.com, @hotmail.com, or @rediffmail.com.');
+                return false;
+            }
+
+            return true; // Form is valid
+        }
+    </script>
+</body>
+</html>
