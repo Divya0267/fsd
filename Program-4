@@ -3,69 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
+    <title>Registration Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: darkgreen;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <h2>Registration Form</h2>
-    <form id="registrationForm" onsubmit="return validateForm()">
-        
-        Username: <input type="text" id="username" name="username" required><br><br>
-        
-        Password: <input type="password" id="password" name="password" required><br><br>
-        
-        DOB: <input type="text" id="dob" name="dob" required><br><br>
-        
-        Contact: <input type="text" id="contact" name="contact" required><br><br>
-        
-        Email: <input type="email" id="email" name="email" required><br><br>
-        
-        <button type="submit">Submit</button>
+    <form id="registrationForm">
+        <label>Username:</label>
+        <input type="text" id="username" placeholder="Enter username">
+
+        <label>Password:</label>
+        <input type="password" id="password" placeholder="Enter password">
+
+        <label>Date of Birth (dd-mm-yyyy):</label>
+        <input type="text" id="dob" placeholder="dd-mm-yyyy">
+
+        <label>Contact Number:</label>
+        <input type="text" id="contact" placeholder="Enter contact number">
+
+        <label>Email:</label>
+        <input type="text" id="email" placeholder="Enter email (e.g., abc@gmail.com)">
+
+        <button type="button" id="validateBtn">Validate</button>
+        <div id="errorMessage" class="error"></div>
     </form>
 
     <script>
-        function validateForm()
-        {
-            // Validate Username: length between 8 and 16, starts with letter, contains letters and numbers
-            let username = document.getElementById('username').value;
-            let usernamePattern = /^[a-zA-Z][a-zA-Z0-9]{7,15}$/;
-            if (!usernamePattern.test(username)) {
-                alert('Username must be between 8 and 16 characters, start with a letter, and contain alphabets and numbers.');
-                return false;
-            }
-            // Validate Password: length between 8 and 16, contains at least 1 number and 1 special character
-            let password = document.getElementById('password').value;
-            let passwordPattern = /^(?=.[A-Za-z])(?=.\d)(?=.[!@#$%^&])[A-Za-z\d!@#$%^&*]{8,16}$/;
-            if (!passwordPattern.test(password)) {
-                alert('Password must be between 8 and 16 characters, contain at least 1 number, and exactly 1 special character.');
-                return false;
+        document.getElementById('validateBtn').addEventListener('click', function () {
+            // Get input values
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const dob = document.getElementById('dob').value;
+            const contact = document.getElementById('contact').value;
+            const email = document.getElementById('email').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Regular Expressions
+            const usernameRegex = /^[A-Za-z][A-Za-z0-9]{7,15}$/; // Starts with letter, 8-16 length, letters/numbers only
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^\w\d\s])[A-Za-z\d^\w\d\s]{8,16}$/; // 1 special character, letters, numbers
+            const dobRegex = /^\d{2}-\d{2}-\d{4}$/; // dd-mm-yyyy format
+            const contactRegex = /^\d+$/; // Numbers only
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com|rediffmail\.com)$/; // Ends with @gmail.com, @hotmail.com, etc.
+
+            let errors = [];
+
+            // Validate Username
+            if (!usernameRegex.test(username)) {
+                errors.push("Username must be 8-16 characters long, start with a letter, and contain only letters and numbers.");
             }
 
-            // Validate Date of Birth: dd-mm-yyyy format
-            let dob = document.getElementById('dob').value;
-            let dobPattern = /^\d{2}-\d{2}-\d{4}$/;
-            if (!dobPattern.test(dob)) {
-                alert('Date of Birth must be in the format dd-mm-yyyy.');
-                return false;
+            // Validate Password
+            if (!passwordRegex.test(password)) {
+                errors.push("Password must be 8-16 characters, contain letters, at least 1 number, and exactly 1 special character.");
             }
 
-            // Validate Contact Number: numbers only
-            let contact = document.getElementById('contact').value;
-            let contactPattern = /^[0-9]{10}$/;
-            if (!contactPattern.test(contact)) {
-                alert('Contact Number must be exactly 10 digits.');
-                return false;
+            // Validate Date of Birth
+            if (!dobRegex.test(dob)) {
+                errors.push("Date of Birth must be in the format dd-mm-yyyy.");
             }
 
-            // Validate Email: ends with @gmail.com, @hotmail.com, or @rediffmail.com
-            let email = document.getElementById('email').value;
-            let emailPattern = /^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com|rediffmail\.com)$/;
-            if (!emailPattern.test(email)) {
-                alert('Email must end with @gmail.com, @hotmail.com, or @rediffmail.com.');
-                return false;
+            // Validate Contact Number
+            if (!contactRegex.test(contact)) {
+                errors.push("Contact number must contain numbers only.");
             }
 
-            return true; // Form is valid
-        }
+            // Validate Email
+            if (!emailRegex.test(email)) {
+                errors.push("Email must end with @gmail.com, @hotmail.com, or @rediffmail.com.");
+            }
+
+            // Display Errors or Success
+            if (errors.length > 0) {
+                errorMessage.innerHTML = errors.join("<br>");
+            } else {
+                errorMessage.style.color = "green";
+                errorMessage.innerHTML = "Registration successful! All inputs are valid.";
+            }
+        });
     </script>
 </body>
 </html>
