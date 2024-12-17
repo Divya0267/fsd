@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Block Shape and Color</title>
+    <style>
+        /* Initial block style */
+        #block {
+            width: 100px;
+            height: 100px;
+            background-color: steelblue;
+            border-radius: 0; /* Square shape */
+            margin: 20px auto;
+            transition: all 0.5s ease; /* Smooth transitions */
+        }
 
+        /* Button styling */
+        #changeBtn {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        #changeBtn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Block -->
+    <div id="block"></div>
+    <!-- Button -->
+    <button id="changeBtn">Change</button>
+
+    <script>
+        // Get references to elements
+        const block = document.getElementById('block');
+        const changeBtn = document.getElementById('changeBtn');
+
+        // Event listener for button click
+        changeBtn.addEventListener('click', () => {
+            // Random color generator
+            const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+            // Toggle between square and circle
+            const currentBorderRadius = window.getComputedStyle(block).borderRadius;
+            const newBorderRadius = currentBorderRadius === '0px' ? '50%' : '0';
+
+            // Apply new styles
+            block.style.backgroundColor = randomColor;
+            block.style.borderRadius = newBorderRadius;
+        });
+    </script>
+</body>
+</html>
