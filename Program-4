@@ -68,49 +68,33 @@
 
     <script>
         document.getElementById('validateBtn').addEventListener('click', function () {
-            // Get input values
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const dob = document.getElementById('dob').value;
             const contact = document.getElementById('contact').value;
             const email = document.getElementById('email').value;
             const errorMessage = document.getElementById('errorMessage');
-
-            // Regular Expressions
             const usernameRegex = /^[A-Za-z][A-Za-z0-9]{7,15}$/; // Starts with letter, 8-16 length, letters/numbers only
             const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^\w\d\s])[A-Za-z\d^\w\d\s]{8,16}$/; // 1 special character, letters, numbers
             const dobRegex = /^\d{2}-\d{2}-\d{4}$/; // dd-mm-yyyy format
             const contactRegex = /^\d+$/; // Numbers only
             const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com|rediffmail\.com)$/; // Ends with @gmail.com, @hotmail.com, etc.
-
             let errors = [];
-
-            // Validate Username
             if (!usernameRegex.test(username)) {
                 errors.push("Username must be 8-16 characters long, start with a letter, and contain only letters and numbers.");
             }
-
-            // Validate Password
             if (!passwordRegex.test(password)) {
                 errors.push("Password must be 8-16 characters, contain letters, at least 1 number, and exactly 1 special character.");
             }
-
-            // Validate Date of Birth
             if (!dobRegex.test(dob)) {
                 errors.push("Date of Birth must be in the format dd-mm-yyyy.");
             }
-
-            // Validate Contact Number
             if (!contactRegex.test(contact)) {
                 errors.push("Contact number must contain numbers only.");
             }
-
-            // Validate Email
             if (!emailRegex.test(email)) {
                 errors.push("Email must end with @gmail.com, @hotmail.com, or @rediffmail.com.");
             }
-
-            // Display Errors or Success
             if (errors.length > 0) {
                 errorMessage.innerHTML = errors.join("<br>");
             } else {
