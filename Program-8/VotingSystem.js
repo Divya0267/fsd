@@ -59,17 +59,17 @@ function VotingSystem() {
 
   const likeButtonStyle = {
     ...buttonStyle,
-    backgroundColor: '#28a745', // Green for like
+    backgroundColor: '#28a745',
   };
 
   const dislikeButtonStyle = {
     ...buttonStyle,
-    backgroundColor: '#dc3545', // Red for dislike
+    backgroundColor: '#dc3545',
   };
 
   const submitButtonStyle = {
     ...buttonStyle,
-    backgroundColor: '#007bff', // Blue for submit
+    backgroundColor: '#007bff',
     marginTop: '20px',
     padding: '12px 24px',
   };
