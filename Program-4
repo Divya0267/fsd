@@ -49,23 +49,17 @@
     <form id="registrationForm">
         <label>Username:</label>
         <input type="text" id="username" placeholder="Enter username">
-
         <label>Password:</label>
         <input type="password" id="password" placeholder="Enter password">
-
         <label>Date of Birth (dd-mm-yyyy):</label>
         <input type="text" id="dob" placeholder="dd-mm-yyyy">
-
         <label>Contact Number:</label>
         <input type="text" id="contact" placeholder="Enter contact number">
-
         <label>Email:</label>
         <input type="text" id="email" placeholder="Enter email (e.g., abc@gmail.com)">
-
         <button type="button" id="validateBtn">Validate</button>
         <div id="errorMessage" class="error"></div>
     </form>
-
     <script>
         document.getElementById('validateBtn').addEventListener('click', function () {
             const username = document.getElementById('username').value;
@@ -74,11 +68,11 @@
             const contact = document.getElementById('contact').value;
             const email = document.getElementById('email').value;
             const errorMessage = document.getElementById('errorMessage');
-            const usernameRegex = /^[A-Za-z][A-Za-z0-9]{7,15}$/; // Starts with letter, 8-16 length, letters/numbers only
-            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^\w\d\s])[A-Za-z\d^\w\d\s]{8,16}$/; // 1 special character, letters, numbers
-            const dobRegex = /^\d{2}-\d{2}-\d{4}$/; // dd-mm-yyyy format
-            const contactRegex = /^\d+$/; // Numbers only
-            const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com|rediffmail\.com)$/; // Ends with @gmail.com, @hotmail.com, etc.
+            const usernameRegex = /^[A-Za-z][A-Za-z0-9]{7,15}$/; 
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^\w\d\s])[A-Za-z\d^\w\d\s]{8,16}$/; 
+            const dobRegex = /^\d{2}-\d{2}-\d{4}$/;
+            const contactRegex = /^\d+$/; 
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com|rediffmail\.com)$/; 
             let errors = [];
             if (!usernameRegex.test(username)) {
                 errors.push("Username must be 8-16 characters long, start with a letter, and contain only letters and numbers.");
