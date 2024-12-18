@@ -47,10 +47,8 @@
         <input type="radio" name="rating" id="star1" value="1"><label for="star1" class="fas fa-star"></label>
     </div>
     <div class="rating-value">Rating: <span id="rating-text">0</span> out of 5</div>
-
     <script>
         $(document).ready(function () {
-            // Hover effect on stars
             $('.star-rating label').hover(function () {
                 $(this).addClass('hover');
                 $(this).prevAll().addClass('hover');
@@ -58,8 +56,6 @@
                 $(this).removeClass('hover');
                 $(this).prevAll().removeClass('hover');
             });
-
-            // Click to select the rating
             $('.star-rating input').on('change', function () {
                 var rating = $(this).val();
                 $('#rating-text').text(rating);
