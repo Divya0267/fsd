@@ -20,7 +20,6 @@
     </form>
 
     <%
-        // Only process if form is submitted via POST
         if ("POST".equalsIgnoreCase(request.getMethod())) {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
