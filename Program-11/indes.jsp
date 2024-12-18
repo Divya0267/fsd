@@ -29,20 +29,15 @@
                 // Database connection setup
                 String dbUrl = "jdbc:mysql://localhost:3306/userdb";
                 String dbUser = "root";
-                String dbPassword = "password"; // Update with your MySQL password
+                String dbPassword = "password"; 
 
                 Connection conn = null;
                 PreparedStatement stmt = null;
                 ResultSet rs = null;
 
                 try {
-                    // Load the database driver (MySQL)
                     Class.forName("com.mysql.cj.jdbc.Driver");
-
-                    // Establish connection
                     conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-
-                    // Query to validate user credentials
                     String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
                     stmt = conn.prepareStatement(sql);
                     stmt.setString(1, username);
@@ -51,10 +46,8 @@
                     rs = stmt.executeQuery();
 
                     if (rs.next()) {
-                        // Successful login, redirect to success page
                         response.sendRedirect("success.jsp");
                     } else {
-                        // Invalid credentials, show error message
                         out.println("<h3>Invalid username or password. Please try again.</h3>");
                     }
                 } catch (Exception e) {
